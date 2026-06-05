@@ -9,6 +9,10 @@ type SystemGridProps = {
   error: string | null;
 };
 
+const HIGH_USAGE_THRESHOLD = 85;
+
+const getUsageTone = (value: number | null) => (value !== null && value >= HIGH_USAGE_THRESHOLD ? 'warn' : 'active');
+
 const SystemGrid = memo(({ systemInfo, isLoading, error }: SystemGridProps) => (
   <div className="space-y-4">
     <div className="flex items-center justify-between">

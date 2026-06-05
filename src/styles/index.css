@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .surface-transition {
+    @apply transition-[border-color,background-color,box-shadow,transform,opacity] duration-300 ease-out;
+  }
+}
+
 :root {
   color-scheme: dark;
   background: #050608;
@@ -26,6 +32,15 @@ body {
   min-width: 320px;
   overflow: hidden;
   background: #050608;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.clock-text-glow {
+  text-shadow: 0 0 22px rgba(103, 232, 249, 0.16), 0 0 54px rgba(139, 92, 246, 0.10);
+}
+
+.clock-label-glow {
+  text-shadow: 0 0 16px rgba(34, 211, 238, 0.18);
 }
 
 button {
@@ -40,5 +55,48 @@ button {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+
+  .surface-transition,
+  .surface-transition:hover {
+    transform: none !important;
+  }
+}
+
+@keyframes novae-ambient-drift {
+  from {
+    transform: translate3d(-1.5%, -1%, 0) scale(1.02);
+  }
+
+  to {
+    transform: translate3d(1.5%, 1%, 0) scale(1.02);
+  }
+}
+
+@keyframes novae-grid-pan {
+  from {
+    background-position: 0 0, 0 0;
+  }
+
+  to {
+    background-position: 52px 52px, 52px 52px;
+  }
+}
+
+.novae-ambient-glow {
+  animation: novae-ambient-drift 18s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.novae-ambient-grid {
+  animation: novae-grid-pan 24s linear infinite;
+  will-change: background-position;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .novae-ambient-glow,
+  .novae-ambient-grid {
+    animation: none !important;
+    transform: none !important;
   }
 }

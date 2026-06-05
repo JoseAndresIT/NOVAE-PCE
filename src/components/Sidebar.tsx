@@ -16,7 +16,7 @@ const Sidebar = memo(() => (
     </div>
     <p className="mt-3 rotate-0 text-[0.62rem] font-semibold uppercase tracking-[0.32em] text-white/[0.45]">NOVAE</p>
     <nav className="mt-10 flex w-full flex-1 flex-col items-center gap-3 px-3">
-      {navItems.map((item) => {
+      {SIDEBAR_NAV_ITEMS.map((item) => {
         const active = item.status === 'active';
         const { Icon } = item;
 
