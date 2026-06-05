@@ -21,7 +21,7 @@ export default {
         violetGlow: '0 0 28px rgba(139, 92, 246, 0.16)',
       },
       fontFamily: {
-        display: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
       },
     },
   },

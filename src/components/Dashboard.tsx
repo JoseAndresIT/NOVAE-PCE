@@ -60,9 +60,9 @@ const Dashboard = memo(() => {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-1 flex-col gap-6 overflow-hidden p-5 md:p-8">
+    <main className="flex min-h-screen min-w-0 flex-1 flex-col gap-6 overflow-hidden p-5 sm:p-6 md:p-8">
       <ClockPanel snapshot={timeSnapshot} />
-      <div className="grid flex-1 gap-6 xl:grid-cols-[1fr_22rem]">
+      <div className="grid min-w-0 flex-1 gap-6 xl:grid-cols-[minmax(0,1fr)_22rem]">
         <SystemGrid systemInfo={systemInfo} isLoading={isSystemLoading} error={systemError} />
         <QuickActions />
       </div>
