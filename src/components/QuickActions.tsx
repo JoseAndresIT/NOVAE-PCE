@@ -64,8 +64,8 @@ const QuickActions = memo(() => {
   }, []);
 
   return (
-    <section className="novae-panel novae-panel-violet novae-edge-light rounded-[2rem] p-6">
-      <div className="relative z-10 mb-5 flex items-center justify-between gap-4">
+    <section className="surface-transition rounded-[2rem] border border-white/10 bg-panel p-6 shadow-violetGlow hover:-translate-y-0.5 hover:scale-[1.005] hover:border-violet/[0.35] hover:shadow-[0_0_38px_rgba(139,92,246,0.24)]">
+      <div className="mb-5 flex items-center justify-between gap-4">
         <div>
           <p className="text-sm uppercase tracking-[0.32em] text-violet/[0.70]">Quick Actions</p>
           <h2 className="mt-1 text-xl font-semibold text-white">Launch pad</h2>
@@ -73,35 +73,16 @@ const QuickActions = memo(() => {
         <div className="h-2 w-2 rounded-full bg-violet shadow-[0_0_12px_rgba(139,92,246,0.55)]" />
       </div>
       <div className="grid gap-3">
-        {actions.map(({ action, Icon, label }) => {
-          const isPending = pendingAction === action;
-
-          return (
-            <button
-              key={action}
-              onClick={() => void handleAction(action)}
-              disabled={pendingAction !== null}
-              className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-left text-sm font-semibold text-white/75 shadow-[0_0_0_rgba(34,211,238,0)] transition duration-200 hover:border-cyan/[0.55] hover:bg-cyan/[0.10] hover:text-cyan hover:shadow-[0_0_22px_rgba(34,211,238,0.18)] active:scale-[0.99] disabled:cursor-wait disabled:opacity-50"
-            >
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-white/55 transition group-hover:border-cyan/[0.45] group-hover:text-cyan">
-                <Icon className="h-4 w-4" aria-hidden="true" strokeWidth={1.8} />
-              </span>
-              <span>{isPending ? 'Starting…' : label}</span>
-            </button>
-          );
-        })}
-      </div>
-      <div className="mt-5 flex min-h-8 items-center gap-2 rounded-xl border border-white/10 bg-black/20 px-3 py-2 font-mono text-[0.68rem] uppercase tracking-[0.18em] text-white/[0.48]">
-        <span
-          className={`h-1.5 w-1.5 rounded-full ${
-            status === 'error'
-              ? 'bg-rose-400 shadow-[0_0_10px_rgba(251,113,133,0.75)]'
-              : status === 'starting'
-                ? 'bg-amber-300 shadow-[0_0_10px_rgba(252,211,77,0.75)]'
-                : 'bg-cyan shadow-[0_0_10px_rgba(34,211,238,0.75)]'
-          }`}
-        />
-        <span>{statusText}</span>
+        {actions.map((item) => (
+          <button
+            key={item.action}
+            onClick={() => void handleAction(item.action)}
+            disabled={pendingAction !== null}
+            className="surface-transition rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-left text-sm font-semibold text-white/75 hover:-translate-y-0.5 hover:scale-[1.005] hover:border-cyan/[0.45] hover:bg-cyan/[0.10] hover:text-cyan hover:shadow-[0_0_24px_rgba(34,211,238,0.18)] disabled:cursor-wait disabled:opacity-55 disabled:hover:translate-y-0 disabled:hover:scale-100 disabled:hover:border-white/10 disabled:hover:bg-white/[0.03] disabled:hover:text-white/75 disabled:hover:shadow-none"
+          >
+            {pendingAction === item.action ? 'Starting…' : item.label}
+          </button>
+        ))}
       </div>
     </section>
   );
