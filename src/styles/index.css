@@ -42,3 +42,41 @@ button {
     animation-iteration-count: 1 !important;
   }
 }
+
+@keyframes novae-ambient-drift {
+  from {
+    transform: translate3d(-1.5%, -1%, 0) scale(1.02);
+  }
+
+  to {
+    transform: translate3d(1.5%, 1%, 0) scale(1.02);
+  }
+}
+
+@keyframes novae-grid-pan {
+  from {
+    background-position: 0 0, 0 0;
+  }
+
+  to {
+    background-position: 52px 52px, 52px 52px;
+  }
+}
+
+.novae-ambient-glow {
+  animation: novae-ambient-drift 18s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.novae-ambient-grid {
+  animation: novae-grid-pan 24s linear infinite;
+  will-change: background-position;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .novae-ambient-glow,
+  .novae-ambient-grid {
+    animation: none !important;
+    transform: none !important;
+  }
+}
