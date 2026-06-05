@@ -9,6 +9,15 @@ const navItems: Array<{ label: string; status: 'active' | 'soon'; Icon: LucideIc
   { label: 'Dev', status: 'soon', Icon: Code2 },
 ];
 
+const CorePulse = () => (
+  <div
+    aria-label="NOVAE core active"
+    className="core-pulse h-2 w-2 rounded-full bg-cyan"
+    role="img"
+    title="NOVAE core active"
+  />
+);
+
 const Sidebar = memo(() => (
   <aside className="flex h-full w-24 shrink-0 flex-col items-center border-r border-white/10 bg-black/40 py-6 md:w-28">
     <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-cyan/30 bg-cyan/[0.10] text-sm font-black tracking-widest text-cyan shadow-glow">
@@ -38,7 +47,7 @@ const Sidebar = memo(() => (
         );
       })}
     </nav>
-    <div className="h-2 w-2 rounded-full bg-cyan shadow-[0_0_16px_rgba(34,211,238,0.8)]" />
+    <CorePulse />
   </aside>
 ));
 

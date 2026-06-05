@@ -47,6 +47,24 @@ button {
   font: inherit;
 }
 
+@keyframes core-pulse {
+  0%,
+  100% {
+    opacity: 0.68;
+    box-shadow: 0 0 10px rgba(34, 211, 238, 0.42);
+  }
+
+  45% {
+    opacity: 1;
+    box-shadow: 0 0 16px rgba(34, 211, 238, 0.82);
+  }
+}
+
+.core-pulse {
+  animation: core-pulse 4s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.42);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -57,46 +75,9 @@ button {
     animation-iteration-count: 1 !important;
   }
 
-  .surface-transition,
-  .surface-transition:hover {
-    transform: none !important;
-  }
-}
-
-@keyframes novae-ambient-drift {
-  from {
-    transform: translate3d(-1.5%, -1%, 0) scale(1.02);
-  }
-
-  to {
-    transform: translate3d(1.5%, 1%, 0) scale(1.02);
-  }
-}
-
-@keyframes novae-grid-pan {
-  from {
-    background-position: 0 0, 0 0;
-  }
-
-  to {
-    background-position: 52px 52px, 52px 52px;
-  }
-}
-
-.novae-ambient-glow {
-  animation: novae-ambient-drift 18s ease-in-out infinite alternate;
-  will-change: transform;
-}
-
-.novae-ambient-grid {
-  animation: novae-grid-pan 24s linear infinite;
-  will-change: background-position;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .novae-ambient-glow,
-  .novae-ambient-grid {
-    animation: none !important;
-    transform: none !important;
+  .core-pulse {
+    animation: none;
+    opacity: 1;
+    box-shadow: 0 0 12px rgba(34, 211, 238, 0.62);
   }
 }
