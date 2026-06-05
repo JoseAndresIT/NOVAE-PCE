@@ -42,3 +42,82 @@ button {
     animation-iteration-count: 1 !important;
   }
 }
+
+@keyframes novae-startup-reveal {
+  0% {
+    opacity: 0;
+  }
+  16%,
+  72% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes novae-startup-panel {
+  0% {
+    opacity: 0;
+    transform: translateY(0.75rem) scale(0.98);
+  }
+  24%,
+  76% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-0.4rem) scale(1.01);
+  }
+}
+
+@keyframes novae-startup-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 30px rgba(34, 211, 238, 0.18), inset 0 0 20px rgba(34, 211, 238, 0.08);
+  }
+  50% {
+    box-shadow: 0 0 58px rgba(34, 211, 238, 0.44), inset 0 0 28px rgba(34, 211, 238, 0.14);
+  }
+}
+
+@keyframes novae-startup-text {
+  0%,
+  100% {
+    opacity: 0.48;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+.novae-startup {
+  animation: novae-startup-reveal 2800ms ease-in-out forwards;
+}
+
+.novae-startup__panel {
+  animation: novae-startup-panel 2800ms ease-in-out forwards;
+}
+
+.novae-startup__mark {
+  animation: novae-startup-glow 1800ms ease-in-out infinite;
+}
+
+.novae-startup__text {
+  animation: novae-startup-text 1100ms ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .novae-startup,
+  .novae-startup__panel,
+  .novae-startup__mark,
+  .novae-startup__text {
+    animation: none;
+  }
+
+  .novae-startup__panel {
+    opacity: 1;
+    transform: none;
+  }
+}
