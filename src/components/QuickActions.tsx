@@ -1,32 +1,63 @@
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useMemo, useState } from 'react';
+import { Code2, Globe, Music, RefreshCw, Terminal, type LucideIcon } from 'lucide-react';
 import { runQuickAction, type QuickAction } from '../modules/core/system';
 
-const actions: Array<{ label: string; action: QuickAction }> = [
-  { label: 'Open VSCode', action: 'vscode' },
-  { label: 'Open Browser', action: 'browser' },
-  { label: 'Open Spotify', action: 'spotify' },
-  { label: 'Open Terminal', action: 'terminal' },
-  { label: 'Reload Hyprland', action: 'reload_hyprland' },
+type QuickActionItem = {
+  label: string;
+  action: QuickAction;
+  Icon: LucideIcon;
+};
+
+type StatusState = 'ready' | 'starting' | 'started' | 'error';
+
+const actions: QuickActionItem[] = [
+  { label: 'Open VSCode', action: 'vscode', Icon: Code2 },
+  { label: 'Open Browser', action: 'browser', Icon: Globe },
+  { label: 'Open Spotify', action: 'spotify', Icon: Music },
+  { label: 'Open Terminal', action: 'terminal', Icon: Terminal },
+  { label: 'Reload Hyprland', action: 'reload_hyprland', Icon: RefreshCw },
 ];
+
+const actionLabels = actions.reduce(
+  (labels, item) => ({ ...labels, [item.action]: item.label }),
+  {} as Record<QuickAction, string>,
+);
 
 const QuickActions = memo(() => {
   const [pendingAction, setPendingAction] = useState<QuickAction | null>(null);
-  const [message, setMessage] = useState('Ready for dispatch.');
+  const [lastAction, setLastAction] = useState<QuickAction | null>(null);
+  const [status, setStatus] = useState<StatusState>('ready');
+
+  const statusText = useMemo(() => {
+    if (status === 'starting') {
+      return 'Starting…';
+    }
+
+    if (status === 'started') {
+      return lastAction ? `Started · ${actionLabels[lastAction]}` : 'Started';
+    }
+
+    if (status === 'error') {
+      return 'Error · Try again';
+    }
+
+    return lastAction ? `Ready · Last ${actionLabels[lastAction]}` : 'Ready';
+  }, [lastAction, status]);
 
   const handleAction = useCallback(async (action: QuickAction) => {
     setPendingAction(action);
+    setStatus('starting');
 
     try {
       const response = await runQuickAction(action);
-      setMessage(response.message);
-    } catch (error) {
-      const fallback =
-        error instanceof Error
-          ? error.message
-          : typeof error === 'object' && error !== null && 'message' in error
-            ? String(error.message)
-            : 'Action failed.';
-      setMessage(fallback);
+      if (response.started) {
+        setLastAction(response.action);
+        setStatus('started');
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
     } finally {
       setPendingAction(null);
     }
@@ -39,7 +70,7 @@ const QuickActions = memo(() => {
           <p className="text-sm uppercase tracking-[0.32em] text-violet/[0.70]">Quick Actions</p>
           <h2 className="mt-1 text-xl font-semibold text-white">Launch pad</h2>
         </div>
-        <div className="h-2 w-2 rounded-full bg-violet shadow-[0_0_14px_rgba(139,92,246,0.9)]" />
+        <div className="h-2 w-2 rounded-full bg-violet shadow-[0_0_12px_rgba(139,92,246,0.55)]" />
       </div>
       <div className="grid gap-3">
         {actions.map((item) => (
@@ -53,7 +84,6 @@ const QuickActions = memo(() => {
           </button>
         ))}
       </div>
-      <p className="mt-5 min-h-5 text-xs text-white/[0.42]">{message}</p>
     </section>
   );
 });

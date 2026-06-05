@@ -1,10 +1,13 @@
-import { memo } from 'react';
+import { memo, type ComponentType } from 'react';
 
 type SystemWidgetProps = {
   label: string;
   value: string;
   detail?: string;
   accent?: 'cyan' | 'violet';
+  icon?: ComponentType<{ className?: string }>;
+  tone?: 'calm' | 'active' | 'warn';
+  live?: boolean;
 };
 
 const accentClasses = {
