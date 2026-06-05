@@ -1,7 +1,7 @@
 import { memo, useCallback, useState } from 'react';
 import { runQuickAction, type QuickAction } from '../modules/core/system';
 
-const actions: Array<{ label: string; action: QuickAction }> = [
+const QUICK_ACTIONS: ReadonlyArray<{ label: string; action: QuickAction }> = [
   { label: 'Open VSCode', action: 'vscode' },
   { label: 'Open Browser', action: 'browser' },
   { label: 'Open Spotify', action: 'spotify' },
