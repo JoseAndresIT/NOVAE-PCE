@@ -8,36 +8,9 @@ type SystemGridProps = {
   error: string | null;
 };
 
-type TelemetryWidgetDefinition = {
-  label: string;
-  detail: string;
-  accent?: 'cyan' | 'violet';
-  getValue: (systemInfo: SystemInfo) => string;
-};
+const HIGH_USAGE_THRESHOLD = 85;
 
-const TELEMETRY_WIDGETS: ReadonlyArray<TelemetryWidgetDefinition> = [
-  { label: 'CPU', detail: '/proc/stat', getValue: (systemInfo) => formatPercent(systemInfo.cpuUsage) },
-  {
-    label: 'RAM',
-    detail: '/proc/meminfo',
-    accent: 'violet',
-    getValue: (systemInfo) => formatPercent(systemInfo.ramUsage),
-  },
-  { label: 'Battery', detail: 'power_supply', getValue: (systemInfo) => formatPercent(systemInfo.batteryPercentage) },
-  {
-    label: 'Uptime',
-    detail: '/proc/uptime',
-    accent: 'violet',
-    getValue: (systemInfo) => formatUptime(systemInfo.uptimeSeconds),
-  },
-  { label: 'Disk', detail: 'root volume', getValue: (systemInfo) => formatPercent(systemInfo.diskUsage) },
-  {
-    label: 'Network',
-    detail: 'net state',
-    accent: 'violet',
-    getValue: (systemInfo) => (systemInfo.networkOnline ? 'Online' : 'Offline'),
-  },
-];
+const getUsageTone = (value: number | null) => (value !== null && value >= HIGH_USAGE_THRESHOLD ? 'warn' : 'active');
 
 const SystemGrid = memo(({ systemInfo, isLoading, error }: SystemGridProps) => (
   <div className="space-y-4">
@@ -54,15 +27,33 @@ const SystemGrid = memo(({ systemInfo, isLoading, error }: SystemGridProps) => (
       <p className="rounded-xl border border-violet/[0.30] bg-violet/[0.10] px-4 py-3 text-sm text-violet-soft">{error}</p>
     ) : null}
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-      {TELEMETRY_WIDGETS.map((widget) => (
-        <SystemWidget
-          key={widget.label}
-          label={widget.label}
-          value={widget.getValue(systemInfo)}
-          detail={widget.detail}
-          accent={widget.accent}
-        />
-      ))}
+      <SystemWidget label="CPU" value={formatPercent(systemInfo.cpuUsage)} detail="/proc/stat" tone={getUsageTone(systemInfo.cpuUsage)} live />
+      <SystemWidget
+        label="RAM"
+        value={formatPercent(systemInfo.ramUsage)}
+        detail="/proc/meminfo"
+        accent="violet"
+        tone={getUsageTone(systemInfo.ramUsage)}
+        live
+      />
+      <SystemWidget label="Battery" value={formatPercent(systemInfo.batteryPercentage)} detail="power_supply" tone="calm" live />
+      <SystemWidget
+        label="Uptime"
+        value={formatUptime(systemInfo.uptimeSeconds)}
+        detail="/proc/uptime"
+        accent="violet"
+        tone="calm"
+        live
+      />
+      <SystemWidget label="Disk" value={formatPercent(systemInfo.diskUsage)} detail="root volume" tone={getUsageTone(systemInfo.diskUsage)} live />
+      <SystemWidget
+        label="Network"
+        value={systemInfo.networkOnline ? 'Online' : 'Offline'}
+        detail="net state"
+        accent="violet"
+        tone={systemInfo.networkOnline ? 'active' : 'calm'}
+        live
+      />
     </div>
   </div>
 ));
