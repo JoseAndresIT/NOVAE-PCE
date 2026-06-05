@@ -17,8 +17,15 @@ const textAccentClasses = {
   violet: 'text-violet-soft',
 };
 
+const hoverAccentClasses = {
+  cyan: 'hover:border-cyan/[0.38] hover:shadow-[0_0_38px_rgba(34,211,238,0.22)]',
+  violet: 'hover:border-violet/[0.38] hover:shadow-[0_0_38px_rgba(139,92,246,0.22)]',
+};
+
 const SystemWidget = memo(({ label, value, detail, accent = 'cyan' }: SystemWidgetProps) => (
-  <section className="group rounded-2xl border border-white/10 bg-panel p-5 shadow-glow transition duration-200 hover:border-cyan/[0.30]">
+  <section
+    className={`group surface-transition rounded-2xl border border-white/10 bg-panel p-5 shadow-glow hover:-translate-y-0.5 hover:scale-[1.005] ${hoverAccentClasses[accent]}`}
+  >
     <div className={`mb-5 h-1 w-12 rounded-full bg-gradient-to-r ${accentClasses[accent]}`} />
     <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/40">{label}</p>
     <div className="mt-3 flex items-end justify-between gap-4">

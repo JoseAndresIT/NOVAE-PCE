@@ -6,7 +6,7 @@ type ClockPanelProps = {
 };
 
 const ClockPanel = memo(({ snapshot }: ClockPanelProps) => (
-  <section className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-panel p-8 shadow-glow md:p-10">
+  <section className="surface-transition relative overflow-hidden rounded-[2rem] border border-white/10 bg-panel p-8 shadow-glow hover:-translate-y-0.5 hover:scale-[1.005] hover:border-cyan/[0.35] hover:shadow-[0_0_42px_rgba(34,211,238,0.22)] md:p-10">
     <div className="absolute right-10 top-10 h-28 w-28 rounded-full bg-cyan/[0.10] blur-3xl" />
     <div className="absolute bottom-0 left-16 h-32 w-32 rounded-full bg-violet/[0.10] blur-3xl" />
     <div className="relative">

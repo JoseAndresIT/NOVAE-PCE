@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .surface-transition {
+    @apply transition-[border-color,background-color,box-shadow,transform,opacity] duration-300 ease-out;
+  }
+}
+
 :root {
   color-scheme: dark;
   background: #050608;
@@ -40,5 +46,10 @@ button {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+
+  .surface-transition,
+  .surface-transition:hover {
+    transform: none !important;
   }
 }
