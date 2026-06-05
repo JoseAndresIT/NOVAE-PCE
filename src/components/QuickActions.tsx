@@ -64,13 +64,13 @@ const QuickActions = memo(() => {
   }, []);
 
   return (
-    <section className="rounded-[2rem] border border-white/10 bg-panel p-6 shadow-violetGlow">
-      <div className="mb-5 flex items-center justify-between gap-4">
+    <section className="novae-panel novae-panel-violet novae-edge-light rounded-[2rem] p-6">
+      <div className="relative z-10 mb-5 flex items-center justify-between gap-4">
         <div>
           <p className="text-sm uppercase tracking-[0.32em] text-violet/[0.70]">Quick Actions</p>
           <h2 className="mt-1 text-xl font-semibold text-white">Launch pad</h2>
         </div>
-        <div className="h-2 w-2 rounded-full bg-violet shadow-[0_0_14px_rgba(139,92,246,0.9)]" />
+        <div className="h-2 w-2 rounded-full bg-violet shadow-[0_0_12px_rgba(139,92,246,0.55)]" />
       </div>
       <div className="grid gap-3">
         {actions.map(({ action, Icon, label }) => {
