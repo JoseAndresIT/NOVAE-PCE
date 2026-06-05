@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .surface-transition {
+    @apply transition-[border-color,background-color,box-shadow,transform,opacity] duration-300 ease-out;
+  }
+}
+
 :root {
   color-scheme: dark;
   background: #050608;
@@ -26,10 +32,37 @@ body {
   min-width: 320px;
   overflow: hidden;
   background: #050608;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.clock-text-glow {
+  text-shadow: 0 0 22px rgba(103, 232, 249, 0.16), 0 0 54px rgba(139, 92, 246, 0.10);
+}
+
+.clock-label-glow {
+  text-shadow: 0 0 16px rgba(34, 211, 238, 0.18);
 }
 
 button {
   font: inherit;
+}
+
+@keyframes core-pulse {
+  0%,
+  100% {
+    opacity: 0.68;
+    box-shadow: 0 0 10px rgba(34, 211, 238, 0.42);
+  }
+
+  45% {
+    opacity: 1;
+    box-shadow: 0 0 16px rgba(34, 211, 238, 0.82);
+  }
+}
+
+.core-pulse {
+  animation: core-pulse 4s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.42);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -40,6 +73,12 @@ button {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+
+  .core-pulse {
+    animation: none;
+    opacity: 1;
+    box-shadow: 0 0 12px rgba(34, 211, 238, 0.62);
   }
 }
 
