@@ -47,22 +47,40 @@ button {
   font: inherit;
 }
 
-@keyframes core-pulse {
-  0%,
-  100% {
-    opacity: 0.68;
-    box-shadow: 0 0 10px rgba(34, 211, 238, 0.42);
+@keyframes ambient-drift {
+  0% {
+    background-position: 0 0, 0 0;
   }
 
-  45% {
-    opacity: 1;
-    box-shadow: 0 0 16px rgba(34, 211, 238, 0.82);
+  50% {
+    background-position: 28px -18px, -18px 28px;
+  }
+
+  100% {
+    background-position: 56px -36px, -36px 56px;
   }
 }
 
-.core-pulse {
-  animation: core-pulse 4s ease-in-out infinite;
-  box-shadow: 0 0 10px rgba(34, 211, 238, 0.42);
+@layer components {
+  .ambient-lighting {
+    background:
+      radial-gradient(circle at 18% 16%, rgba(34, 211, 238, 0.11), transparent 34%),
+      radial-gradient(circle at 82% 80%, rgba(139, 92, 246, 0.1), transparent 32%);
+  }
+
+  .ambient-grid {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 52px 52px;
+    opacity: 0.35;
+    animation: ambient-drift 32s linear infinite;
+    will-change: background-position;
+  }
+
+  .ambient-vignette {
+    background: radial-gradient(circle at center, transparent 52%, rgba(5, 6, 8, 0.72) 100%);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -75,88 +93,7 @@ button {
     animation-iteration-count: 1 !important;
   }
 
-  .core-pulse {
-    animation: none;
-    opacity: 1;
-    box-shadow: 0 0 12px rgba(34, 211, 238, 0.62);
-  }
-}
-
-@keyframes novae-startup-reveal {
-  0% {
-    opacity: 0;
-  }
-  16%,
-  72% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes novae-startup-panel {
-  0% {
-    opacity: 0;
-    transform: translateY(0.75rem) scale(0.98);
-  }
-  24%,
-  76% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-0.4rem) scale(1.01);
-  }
-}
-
-@keyframes novae-startup-glow {
-  0%,
-  100% {
-    box-shadow: 0 0 30px rgba(34, 211, 238, 0.18), inset 0 0 20px rgba(34, 211, 238, 0.08);
-  }
-  50% {
-    box-shadow: 0 0 58px rgba(34, 211, 238, 0.44), inset 0 0 28px rgba(34, 211, 238, 0.14);
-  }
-}
-
-@keyframes novae-startup-text {
-  0%,
-  100% {
-    opacity: 0.48;
-  }
-  50% {
-    opacity: 0.9;
-  }
-}
-
-.novae-startup {
-  animation: novae-startup-reveal 2800ms ease-in-out forwards;
-}
-
-.novae-startup__panel {
-  animation: novae-startup-panel 2800ms ease-in-out forwards;
-}
-
-.novae-startup__mark {
-  animation: novae-startup-glow 1800ms ease-in-out infinite;
-}
-
-.novae-startup__text {
-  animation: novae-startup-text 1100ms ease-in-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .novae-startup,
-  .novae-startup__panel,
-  .novae-startup__mark,
-  .novae-startup__text {
-    animation: none;
-  }
-
-  .novae-startup__panel {
-    opacity: 1;
-    transform: none;
+  .ambient-grid {
+    animation: none !important;
   }
 }
