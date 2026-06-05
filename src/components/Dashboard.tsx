@@ -5,6 +5,7 @@ import ClockPanel from './ClockPanel';
 import QuickActions from './QuickActions';
 import SystemGrid from '../widgets/SystemGrid';
 
+// Keep telemetry polling at 4 seconds or slower to avoid unnecessary runtime pressure.
 const SYSTEM_POLL_MS = 4_000;
 const CLOCK_POLL_MS = 1_000;
 
