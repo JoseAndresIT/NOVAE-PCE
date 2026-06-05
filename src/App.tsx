@@ -2,6 +2,7 @@ import { memo } from 'react';
 import AmbientBackground from './components/AmbientBackground';
 import Dashboard from './components/Dashboard';
 import Sidebar from './components/Sidebar';
+import StartupSequence from './components/StartupSequence';
 
 const App = memo(() => (
   <div className="min-h-screen overflow-hidden bg-matte font-display text-white antialiased">
@@ -10,8 +11,8 @@ const App = memo(() => (
       <Sidebar />
       <Dashboard />
     </div>
-  </div>
-));
+  );
+});
 
 App.displayName = 'App';
 
