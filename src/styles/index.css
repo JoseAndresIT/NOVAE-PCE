@@ -32,6 +32,24 @@ button {
   font: inherit;
 }
 
+@keyframes core-pulse {
+  0%,
+  100% {
+    opacity: 0.68;
+    box-shadow: 0 0 10px rgba(34, 211, 238, 0.42);
+  }
+
+  45% {
+    opacity: 1;
+    box-shadow: 0 0 16px rgba(34, 211, 238, 0.82);
+  }
+}
+
+.core-pulse {
+  animation: core-pulse 4s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.42);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -40,5 +58,11 @@ button {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+
+  .core-pulse {
+    animation: none;
+    opacity: 1;
+    box-shadow: 0 0 12px rgba(34, 211, 238, 0.62);
   }
 }
